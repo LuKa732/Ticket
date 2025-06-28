@@ -114,6 +114,7 @@ class TicketSelect(discord.ui.Select):
         if discord.utils.get(guild.channels, name=f"ticket-{author.id}"):
             return await interaction.response.send_message("⚠️ لديك تكت مفتوح بالفعل.", ephemeral=True)
 
+        # رقم التكت المتسلسل
         current_number = get_ticket_number() + 1
         update_ticket_number(current_number)
 
@@ -125,20 +126,20 @@ class TicketSelect(discord.ui.Select):
         if staff_role:
             overwrites[staff_role] = discord.PermissionOverwrite(read_messages=True, send_messages=True)
 
-        channel = await guild.create_text_channel(name=f"🎫 - {current_number}", category=category, overwrites=overwrites)
+        channel = await guild.create_text_channel(name=f"🎫-{current_number}", category=category, overwrites=overwrites)
 
         ticket_images = {
             "استفسار": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913220819259542/608b0ab822b80764.png",
-            "شكوى": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913237172981821/8753aa7e0be43927.png",
-            "شكوى على إداري": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913251525755152/dda1698fae207689.png"
+            "شكوى": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913220819259542/608b0ab822b80764.png",
+            "شكوى على إداري": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913220819259542/608b0ab822b80764.png"
         }
         image_url = ticket_images.get(ticket_type)
         if image_url:
-            await channel.send(embed=discord.Embed().set_image(url=image_url))
+            await channel.send(image_url)
 
             await channel.send(
                 content=f"""سلام عليكم {author.mention}
-سوف يتم الرد خلال ثواني.. <@&{STAFF_ROLE_ID}>""",
+            سوف يتم الرد خلال ثواني.. <@&{STAFF_ROLE_ID}>""",
                 view=TicketManageButtons()
             )
         await interaction.response.send_message(embed=discord.Embed(description=f"✅ تم إنشاء تذكرتك: {channel.mention}", color=discord.Color.green()), ephemeral=True)
@@ -153,9 +154,14 @@ class TicketSelectView(View):
 @app_commands.describe(channel="اختر القناة")
 async def ticket_command(interaction: discord.Interaction, channel: discord.TextChannel):
     await interaction.response.send_message(embed=discord.Embed(description=f"✅ تم إرسال النظام في {channel.mention}", color=discord.Color.green()), ephemeral=True)
+
+    # رسالة الترحيب النصية
     await channel.send("**مرحباً بك في نظام التذاكر في سيرفر WTX 🎟️**")
-    await channel.send("https://cdn.discordapp.com/attachments/1387472866060140674/1387913237172981821/8753aa7e0be43927.png
-"
+
+    # رسالة الصورة (Discord يعرضها تلقائياً)
+    await channel.send("https://cdn.discordapp.com/attachments/965980560155639819/1388217710319632484/background.png?ex=68602dfd&is=685edc7d&hm=723292df97c3f3f8f8abb076dc80eb9e9be4e9fcfc69d484cdcd796483a6fe0e")
+
+    # رسالة القائمة مع الأزرار (View)
     await channel.send(view=TicketSelectView())
 
 # ====== الرسائل الدورية بإمبد ======
@@ -173,10 +179,11 @@ async def send_periodic_embed():
                 )
                 embed.add_field(name="🕒 الوقت الآن", value=now, inline=False)
                 embed.set_footer(text="نظام الإرسال التلقائي")
+
                 await channel.send(embed=embed)
         except Exception as e:
             print(f"❌ خطأ في إرسال الرسالة الدورية: {e}")
-        await asyncio.sleep(600)
+        await asyncio.sleep(60)
 
 # ====== تشغيل البوت ======
 @bot.event
@@ -189,16 +196,6 @@ async def on_ready():
         print(f"❌ فشل في المزامنة: {e}")
 
     bot.loop.create_task(send_periodic_embed())
-
-    # استبدل بالمعرّف الصحيح للقناة التي تريد إرسال الصور والقائمة فيها
-    channel = bot.get_channel(123456789012345678)  # غيّر هذا لـ ID القناة
-
-    if channel:
-        embed = discord.Embed()
-        embed.set_image(url="https://cdn.discordapp.com/attachments/1387472866060140674/1387914604319080528/52dddfcc96d3b2c9.png")
-        await channel.send(embed=embed)
-
-        await channel.send(view=TicketSelectView())
 
 # ====== شغل البوت باستخدام التوكن ======
 bot.run(os.getenv("TOKEN"))
