@@ -187,9 +187,18 @@ async def on_ready():
     except Exception as e:
         print(f"❌ فشل في المزامنة: {e}")
 
+   @bot.event
+async def on_ready():
+    print(f'✅ Logged in as {bot.user}')
+    try:
+        synced = await bot.tree.sync()
+        print(f"✅ تمت مزامنة {len(synced)} أمر Slash.")
+    except Exception as e:
+        print(f"❌ فشل في المزامنة: {e}")
+
     bot.loop.create_task(send_periodic_embed())
 
-    # استبدل بالمعرّف الصحيح للقناة التي تريد إرسال الصور والقائمة فيها
+    # عوّض هنا معرف القناة الصح
     channel = bot.get_channel(123456789012345678)
 
     if channel:
@@ -198,6 +207,7 @@ async def on_ready():
         await channel.send(embed=embed)
 
         await channel.send(view=TicketSelectView())
+
 
 # ====== شغل البوت باستخدام التوكن ======
 bot.run(os.getenv("TOKEN"))
