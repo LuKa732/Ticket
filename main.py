@@ -154,6 +154,8 @@ class TicketSelectView(View):
 async def ticket_command(interaction: discord.Interaction, channel: discord.TextChannel):
     await interaction.response.send_message(embed=discord.Embed(description=f"✅ تم إرسال النظام في {channel.mention}", color=discord.Color.green()), ephemeral=True)
     await channel.send("**مرحباً بك في نظام التذاكر في سيرفر WTX 🎟️**")
+    await channel.send("https://cdn.discordapp.com/attachments/1387472866060140674/1387913237172981821/8753aa7e0be43927.png
+"
     await channel.send(view=TicketSelectView())
 
 # ====== الرسائل الدورية بإمبد ======
