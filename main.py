@@ -183,8 +183,7 @@ async def send_periodic_embed():
                 await channel.send(embed=embed)
         except Exception as e:
             print(f"❌ خطأ في إرسال الرسالة الدورية: {e}")
-        await asyncio.sleep(60)
-
+        await asyncio.sleep(600)
 # ====== تشغيل البوت ======
 @bot.event
 async def on_ready():
