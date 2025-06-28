@@ -139,7 +139,7 @@ class TicketSelect(discord.ui.Select):
 
             await channel.send(
                 content=f"""سلام عليكم {author.mention}
-            سوف يتم الرد خلال ثواني.. <@&{STAFF_ROLE_ID}>""",
+سوف يتم الرد خلال ثواني.. <@&{STAFF_ROLE_ID}>""",
                 view=TicketManageButtons()
             )
         await interaction.response.send_message(embed=discord.Embed(description=f"✅ تم إنشاء تذكرتك: {channel.mention}", color=discord.Color.green()), ephemeral=True)
@@ -159,7 +159,7 @@ async def ticket_command(interaction: discord.Interaction, channel: discord.Text
     await channel.send("**مرحباً بك في نظام التذاكر في سيرفر WTX 🎟️**")
 
     # رسالة الصورة (Discord يعرضها تلقائياً)
-   await channel.send("https://cdn.discordapp.com/attachments/965980560155639819/1388217710319632484/background.png")
+    await channel.send("https://cdn.discordapp.com/attachments/965980560155639819/1388217710319632484/background.png")
 
     # رسالة القائمة مع الأزرار (View)
     await channel.send(view=TicketSelectView())
