@@ -129,7 +129,7 @@ class TicketSelect(discord.ui.Select):
 
         ticket_images = {
             "استفسار": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913220819259542/608b0ab822b80764.png",
-            "شكوى": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913220819259542/608b0ab822b80764.png",
+            "شكوى": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913237172981821/8753aa7e0be43927.png",
             "شكوى على إداري": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913251525755152/dda1698fae207689.png"
         }
         image_url = ticket_images.get(ticket_type)
