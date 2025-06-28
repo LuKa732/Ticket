@@ -157,8 +157,7 @@ async def ticket_command(interaction: discord.Interaction, channel: discord.Text
 
     # رسالة الترحيب النصية
     await channel.send("**مرحباً بك في نظام التذاكر في سيرفر WTX 🎟️**")
-
-   @bot.event
+ @bot.event
 async def on_ready():
     channel = bot.get_channel(123456789012345678)
     
