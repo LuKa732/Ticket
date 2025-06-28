@@ -201,6 +201,16 @@ async def on_ready():
 
     bot.loop.create_task(send_periodic_embed())
 
+    # 👇 أضف هذه الأسطر بعد مزامنة الأوامر
+    channel = bot.get_channel(123456789012345678)  # استبدل بالمعرّف الصحيح
+
+    # رسالة الصورة
+    await channel.send(content="<https://cdn.discordapp.com/attachments/your-image.png>")
+
+    # رسالة القائمة مع الأزرار
+    await channel.send(view=TicketSelectView())
+
+
 # ✅ شغل البوت باستخدام التوكن الخاص بك
 import os
 bot.run(os.getenv("TOKEN"))
