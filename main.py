@@ -126,7 +126,7 @@ class TicketSelect(discord.ui.Select):
         if staff_role:
             overwrites[staff_role] = discord.PermissionOverwrite(read_messages=True, send_messages=True)
 
-        channel = await guild.create_text_channel(name=f"🎫-{current_number}", category=category, overwrites=overwrites)
+        channel = await guild.create_text_channel(name=f"🎫 - {current_number}", category=category, overwrites=overwrites)
 
         ticket_images = {
             "استفسار": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913220819259542/608b0ab822b80764.png",
