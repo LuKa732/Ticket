@@ -164,28 +164,7 @@ async def ticket_command(interaction: discord.Interaction, channel: discord.Text
     # رسالة القائمة مع الأزرار (View)
     await channel.send(view=TicketSelectView())
 
-# ====== الرسائل الدورية بإمبد ======
-async def send_periodic_embed():
-    await bot.wait_until_ready()
-    channel = bot.get_channel(PERIODIC_CHANNEL_ID)
-    while True:
-        try:
-            if channel:
-                now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
-                embed = discord.Embed(
-                    title="رسالة دورية من البوت",
-                    description="هذه رسالة إمبد تُرسل كل دقيقة.",
-                    color=discord.Color.blue()
-                )
-                embed.add_field(name="🕒 الوقت الآن", value=now, inline=False)
-                embed.set_footer(text="نظام الإرسال التلقائي")
-
-                await channel.send(embed=embed)
-        except Exception as e:
-            print(f"❌ خطأ في إرسال الرسالة الدورية: {e}")
-        await asyncio.sleep(60)
-
-# ====== تشغيل البوت ======
+# ====== الرسائل الدورية بإمبد # ====== تشغيل البوت ======
 @bot.event
 async def on_ready():
     print(f'✅ Logged in as {bot.user}')
