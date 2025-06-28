@@ -129,10 +129,10 @@ class TicketSelect(discord.ui.Select):
         channel = await guild.create_text_channel(name=f"🎫 - {current_number}", category=category, overwrites=overwrites)
 
         ticket_images = {
-            "استفسار": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913220819259542/608b0ab822b80764.png",
-            "شكوى": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913237172981821/8753aa7e0be43927.png?ex=686063ed&is=685f126d&hm=fa13562d79d231ea9f8ec35994d3e522841f3a50b71175e6109ad4a4f09b0a95&"
-            "شكوى على إداري": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913251525755152/dda1698fae207689.png?ex=686063f1&is=685f1271&hm=8b25b97f1e0994a3bc85b87bd897ec77f7ca63f4d1e5611bf1cb440eb799c84b&"
-        }
+    "استفسار": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913220819259542/608b0ab822b80764.png",
+    "شكوى": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913220819259542/608b0ab822b80764.png",
+    "شكوى على إداري": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913251525755152/dda1698fae207689.png?ex=686063f1&is=685f1271&hm=8b25b97f1e0994a3bc85b87bd897ec77f7ca63f4d1e5611bf1cb440eb799c84b&"
+}
         image_url = ticket_images.get(ticket_type)
         if image_url:
             await channel.send(image_url)
