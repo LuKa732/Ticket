@@ -114,7 +114,6 @@ class TicketSelect(discord.ui.Select):
         if discord.utils.get(guild.channels, name=f"ticket-{author.id}"):
             return await interaction.response.send_message("⚠️ لديك تكت مفتوح بالفعل.", ephemeral=True)
 
-        # رقم التكت المتسلسل
         current_number = get_ticket_number() + 1
         update_ticket_number(current_number)
 
@@ -129,13 +128,13 @@ class TicketSelect(discord.ui.Select):
         channel = await guild.create_text_channel(name=f"🎫 - {current_number}", category=category, overwrites=overwrites)
 
         ticket_images = {
-    "استفسار": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913220819259542/608b0ab822b80764.png",
-    "شكوى": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913237172981821/8753aa7e0be43927.png?ex=686063ed&is=685f126d&hm=fa13562d79d231ea9f8ec35994d3e522841f3a50b71175e6109ad4a4f09b0a95&",
-    "شكوى على إداري": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913251525755152/dda1698fae207689.png?ex=686063f1&is=685f1271&hm=8b25b97f1e0994a3bc85b87bd897ec77f7ca63f4d1e5611bf1cb440eb799c84b&"
-}
+            "استفسار": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913220819259542/608b0ab822b80764.png",
+            "شكوى": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913220819259542/608b0ab822b80764.png",
+            "شكوى على إداري": "https://cdn.discordapp.com/attachments/1387472866060140674/1387913251525755152/dda1698fae207689.png"
+        }
         image_url = ticket_images.get(ticket_type)
         if image_url:
-            await channel.send(image_url)
+            await channel.send(embed=discord.Embed().set_image(url=image_url))
 
             await channel.send(
                 content=f"""سلام عليكم {author.mention}
@@ -189,13 +188,12 @@ async def on_ready():
 
     bot.loop.create_task(send_periodic_embed())
 
-    # ضع هنا معرف القناة الصحيح
-    channel = bot.get_channel(123456789012345678)  # غير هذا إلى معرف قناتك الحقيقي
+    # استبدل بالمعرّف الصحيح للقناة التي تريد إرسال الصور والقائمة فيها
+    channel = bot.get_channel(123456789012345678)  # غيّر هذا لـ ID القناة
 
     if channel:
         embed = discord.Embed()
-       embed.set_image(url="https://cdn.discordapp.com/attachments/1387472866060140674/1387914604319080528/52dddfcc96d3b2c9.png")
-
+        embed.set_image(url="https://cdn.discordapp.com/attachments/1387472866060140674/1387914604319080528/52dddfcc96d3b2c9.png")
         await channel.send(embed=embed)
 
         await channel.send(view=TicketSelectView())
