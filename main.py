@@ -139,7 +139,7 @@ class TicketSelect(discord.ui.Select):
 
             await channel.send(
                 content=f"""سلام عليكم {author.mention}
-            سوف يتم الرد خلال ثواني.. <@&{STAFF_ROLE_ID}>""",
+سوف يتم الرد خلال ثواني.. <@&{STAFF_ROLE_ID}>""",
                 view=TicketManageButtons()
             )
         await interaction.response.send_message(embed=discord.Embed(description=f"✅ تم إنشاء تذكرتك: {channel.mention}", color=discord.Color.green()), ephemeral=True)
@@ -154,18 +154,7 @@ class TicketSelectView(View):
 @app_commands.describe(channel="اختر القناة")
 async def ticket_command(interaction: discord.Interaction, channel: discord.TextChannel):
     await interaction.response.send_message(embed=discord.Embed(description=f"✅ تم إرسال النظام في {channel.mention}", color=discord.Color.green()), ephemeral=True)
-
-    # رسالة الترحيب النصية
     await channel.send("**مرحباً بك في نظام التذاكر في سيرفر WTX 🎟️**")
- @bot.event
-async def on_ready():
-    channel = bot.get_channel(123456789012345678)
-    
-    # رسالة الصورة
-    await channel.send(content="<https://cdn.discordapp.com/attachments/your-image.png>")
-
-
-    # رسالة القائمة مع الأزرار (View)
     await channel.send(view=TicketSelectView())
 
 # ====== الرسائل الدورية بإمبد ======
@@ -183,11 +172,11 @@ async def send_periodic_embed():
                 )
                 embed.add_field(name="🕒 الوقت الآن", value=now, inline=False)
                 embed.set_footer(text="نظام الإرسال التلقائي")
-
                 await channel.send(embed=embed)
         except Exception as e:
             print(f"❌ خطأ في إرسال الرسالة الدورية: {e}")
         await asyncio.sleep(600)
+
 # ====== تشغيل البوت ======
 @bot.event
 async def on_ready():
@@ -200,16 +189,15 @@ async def on_ready():
 
     bot.loop.create_task(send_periodic_embed())
 
-    # 👇 أضف هذه الأسطر بعد مزامنة الأوامر
-    channel = bot.get_channel(123456789012345678)  # استبدل بالمعرّف الصحيح
+    # استبدل بالمعرّف الصحيح للقناة التي تريد إرسال الصور والقائمة فيها
+    channel = bot.get_channel(123456789012345678)
 
-    # رسالة الصورة
-    await channel.send(content="<https://cdn.discordapp.com/attachments/your-image.png>")
+    if channel:
+        # رسالة الصورة
+        await channel.send(content="https://cdn.discordapp.com/attachments/your-image.png")
 
-    # رسالة القائمة مع الأزرار
-    await channel.send(view=TicketSelectView())
+        # رسالة القائمة مع الأزرار
+        await channel.send(view=TicketSelectView())
 
-
-# ✅ شغل البوت باستخدام التوكن الخاص بك
-import os
+# ====== شغل البوت باستخدام التوكن ======
 bot.run(os.getenv("TOKEN"))
