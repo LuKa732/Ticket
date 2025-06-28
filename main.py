@@ -159,7 +159,9 @@ async def ticket_command(interaction: discord.Interaction, channel: discord.Text
     await channel.send("**مرحباً بك في نظام التذاكر في سيرفر WTX 🎟️**")
 
     # رسالة الصورة (Discord يعرضها تلقائياً)
-    await channel.send("https://cdn.discordapp.com/attachments/965980560155639819/1388217710319632484/background.png")
+    embed = discord.Embed()
+embed.set_image(url="https://cdn.discordapp.com/attachments/965980560155639819/1388217710319632484/background.png")
+await channel.send(embed=embed)
 
     # رسالة القائمة مع الأزرار (View)
     await channel.send(view=TicketSelectView())
