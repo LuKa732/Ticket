@@ -158,8 +158,12 @@ async def ticket_command(interaction: discord.Interaction, channel: discord.Text
     # رسالة الترحيب النصية
     await channel.send("**مرحباً بك في نظام التذاكر في سيرفر WTX 🎟️**")
 
-    # رسالة الصورة (Discord يعرضها تلقائياً)
-  await channel.send(content="<https://cdn.discordapp.com/attachments/...>")
+   @bot.event
+async def on_ready():
+    channel = bot.get_channel(123456789012345678)
+    
+    # رسالة الصورة
+    await channel.send(content="<https://cdn.discordapp.com/attachments/your-image.png>")
 
 
     # رسالة القائمة مع الأزرار (View)
