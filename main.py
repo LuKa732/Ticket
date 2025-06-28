@@ -194,7 +194,8 @@ async def on_ready():
 
     if channel:
         embed = discord.Embed()
-        embed.set_image(url="https://cdn.discordapp.com/attachments/1387472866060140674/1387914604319080528/52dddfcc96d3b2c9.png?ex=68606533&is=685f13b3&hm=61ec067d5ba5fc7825ed9c21a5dc9e7e85ee6ac3f93de51e1c43a1037a673d03&")
+       embed.set_image(url="https://cdn.discordapp.com/attachments/1387472866060140674/1387914604319080528/52dddfcc96d3b2c9.png")
+
         await channel.send(embed=embed)
 
         await channel.send(view=TicketSelectView())
