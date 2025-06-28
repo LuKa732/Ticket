@@ -193,12 +193,11 @@ async def on_ready():
     channel = bot.get_channel(123456789012345678)
 
     if channel:
-    embed = discord.Embed()
-    embed.set_image(url="https://cdn.discordapp.com/attachments/your-image.png")
-    await channel.send(embed=embed)
+        embed = discord.Embed()
+        embed.set_image(url="https://cdn.discordapp.com/attachments/your-image.png")
+        await channel.send(embed=embed)
 
-    await channel.send(view=TicketSelectView())
-
+        await channel.send(view=TicketSelectView())
 
 # ====== شغل البوت باستخدام التوكن ======
 bot.run(os.getenv("TOKEN"))
