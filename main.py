@@ -8,6 +8,7 @@ import asyncio
 from datetime import datetime
 from dotenv import load_dotenv
 import os
+import time
 
 load_dotenv()
 
@@ -164,17 +165,26 @@ async def ticket_command(interaction: discord.Interaction, channel: discord.Text
     # رسالة القائمة مع الأزرار (View)
     await channel.send(view=TicketSelectView())
 
-# ====== الرسائل الدورية بإمبد # ====== تشغيل البوت ======
-@bot.event
-async def on_ready():
-    print(f'✅ Logged in as {bot.user}')
-    try:
-        synced = await bot.tree.sync()
-        print(f"✅ تمت مزامنة {len(synced)} أمر Slash.")
-    except Exception as e:
-        print(f"❌ فشل في المزامنة: {e}")
+ADMIN_ROLE_ID = 1387345452860571719
 
-    bot.loop.create_task(send_periodic_embed())
+@bot.command()
+async def ping(ctx):
+    if any(role.id == ADMIN_ROLE_ID for role in ctx.author.roles):
+        start = time.monotonic()
+        message = await ctx.send("جارٍ القياس...")
+        end = time.monotonic()
+
+        bot_latency = round(bot.latency * 1000)
+        api_latency = round((end - start) * 1000)
+
+        embed = discord.Embed(
+            title="📡 Ping",
+            description=f"** ping :** `{bot_latency}ms`\n** API :** `{api_latency}ms`",
+            color=discord.Color.green()
+        )
+        await message.edit(content=None, embed=embed)
+    else:
+        await ctx.send("🚫 هذا الأمر مخصص للإدارة فقط.")
 
 # ====== شغل البوت باستخدام التوكن ======
 bot.run(os.getenv("TOKEN"))
